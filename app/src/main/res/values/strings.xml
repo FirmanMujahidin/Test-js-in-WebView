@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Test Interview</string>
+    <string name="text_detail">kalau di klik isian text, konfigurasi, dan Pilihan warna, dan WebView akan di reset seperti semula mengunakan fugsi javascript.</string>
+
+    <string-array id="choice-type" name="config">
+        <item id="bgchoice">Background</item>
+        <item id="textchoice">Text</item>
+    </string-array>
+
+    <string-array id="choice-color" name="color" >
+        <item value="#ff0000">Red</item>
+        <item value="#00ff00">Green</item>
+        <item value="#ffff00">Yellow</item>
+    </string-array>
+</resources>

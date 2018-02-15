@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/core"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp"
+    tools:context="com.firmanmujahidin.testinterview.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:elevation="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:titleTextColor="@android:color/transparent"
+                />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="Javascript di Webview"/>
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/appBar"
+        android:layout_marginTop="1dp"
+        android:background="@color/colorPrimary"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="73dp" />
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl2"
+        android:layout_below="@id/line1">
+
+        <TextView
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:text="Isian Text"
+            android:textSize="15sp"
+            android:background="@android:color/darker_gray"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/linier1"
+        android:layout_below="@id/rl2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/mEt"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="9.99"
+            android:hint="input text "
+            tools:ignore="Suspicious0dp" />
+
+        <Button
+            android:id="@+id/mBtKlik"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Klik"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linier1"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:padding="5dp"
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray"
+            android:text="Konfigurasi"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl3"
+        android:layout_marginTop="10dp">
+        <Spinner
+            android:id="@+id/mSpinnerConfiguration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/config"
+            android:layout_marginBottom="8dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl3"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:padding="5dp"
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray"
+            android:text="Pilih Warna"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl4"
+        android:layout_marginTop="10dp">
+        <Spinner
+            android:id="@+id/mSpinnerColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/color"
+            android:layout_marginBottom="8dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl4"
+        android:layout_marginTop="40dp">
+
+        <Button
+            android:id="@+id/buttonOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Oke"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:padding="4dp"
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray"
+            android:text="Ini Web View"
+            android:textSize="15sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button"
+        android:layout_marginTop="50dp"
+        tools:ignore="WebViewLayout">
+    <WebView
+        android:id="@+id/mWebView"
+        android:prompt="@string/text_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <Button
+        android:id="@+id/buttonReset"
+        android:visibility="visible"
+        android:layout_marginTop="45dp"
+        android:layout_margin="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/text_detail"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:ignore="RtlHardcoded" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl6"
+        android:layout_marginTop="10dp">
+
+
+    </RelativeLayout>
+</RelativeLayout>
