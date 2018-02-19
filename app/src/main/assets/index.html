@@ -1,9 +1,110 @@
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <title></title>
+
+    <script type="text/javascript">
+
+function reset(){
+	changeBG("white");
+	changeTeks("black");
+}
+function changeBG(color) {
+	document.getElementById("bg").style.backgroundColor = color;
+	// document.body.style.backgroundColor = color;
+}
+
+function changeTeks(color) {
+	// INI KASIH WARNA PADA TEKS BERDASARKAN ID
+	document.getElementById("viewText").style.color = color;
+}
+
+function myFunction(){
+	// AMBIL VALUE BERDASARKAN ID .
+	var choiceType = document.getElementById("choice-type").value;
+	var choiceColor = document.getElementById("choice-color").value;
+
+	if (choiceType) {
+		// JIKA DROPDOWNNYA BERNILAI BACKGROUND
+		if (choiceType == "Background"){
+			// call function yang changeBACKGROUND yang udah lu buat .
+			changeBG(choiceColor);
+		}
+		// JIKA DROPDOWNNYA BERNILAI TEKS
+		if (choiceType == "Teks"){
+			changeTeks(choiceColor);
+		};
+	}
+	appendHtml();
+}
+// NAMA FUNGSI HARUS REPRESENTATIF . JADI GA BINGGUNG SBG DEVELOPER
+function appendHtml() {
+    document.getElementById("viewText").innerHTML = document.getElementById("input").value;
+}
+
+</script>
+
 </head>
+
 <body>
-<p>Kalau sudah di klik di sini tampilan teks nya.</p>
+
+<p id="myH2">Javascrip di Webveiw</p>
+<br>
+
+
+
+
+<footer style="background-color:#A1D490">
+    <p id="title0">Input text</p>
+</footer>
+<input id="input" type="text" name="Masukan teks" >
+
+
+<button type="button" onclick="appendHtml()"> Submit</button>
+
+<br><br>
+
+<footer style="background-color:#A1D490">
+    <p id="title1">Konfigurasi</p>
+</footer>
+
+
+<select id="choice-type">
+    <option></option>
+    <option id="bgchoice" value="Background">Background</option>
+    <option id="textchoice" value="Teks">Teks</option>
+</select>
+
+<br><br>
+
+<footer style="background-color:#A1D490">
+    <p id="title2">Warna</p>
+</footer>
+
+<select id="choice-color">
+    <option></option>
+    <option value="red">Red</option>
+    <option value="green">Green</option>
+    <option value="yellow">Yellow</option>
+</select>
+
+
+
+
+<button type="button" onclick="myFunction()">OK</button>
+
+
+
+<br><br>
+
 </body>
+
+<footer id="bg">
+    <br>
+    <h2><span id="viewText"></span></h2>
+    <br><br>
+
+    <button type="button" onclick="reset()">kalau di klik isian text, konfigurasi, dan Pilihan warna, dan WebView akan di reset seperti semula mengunakan fugsi javascript."</button>
+</footer>
+
+
 </html>

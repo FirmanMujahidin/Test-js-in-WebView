@@ -1,11 +1,9 @@
 package com.firmanmujahidin.testinterview;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -20,7 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
@@ -29,35 +27,66 @@ public class MainActivity extends AppCompatActivity{
     private WebView mWebView;
     private Spinner mSpinnerConfiguration, mSpinnerColor;
 
-    String htmlText = "<P>Kalau sudah di klik di sini tampilan teks nya</p>";
-    String mimeType = "text/html";
-    String encoding = "utf-8";
+    List<String> listConfig = new ArrayList<>();
+    List<String> listColor = new ArrayList<>();
 
-    @SuppressLint("SetJavaScriptEnabled")
+    String mimeType = "text/html";
+    String encoding = "UTF-8";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         mWebView = (WebView) findViewById(R.id.mWebView);
+        setmWebView();
         mEditText = (EditText) findViewById(R.id.mEt);
         mButtonKlik = (Button) findViewById(R.id.mBtKlik);
+        setmButtonKlik();
+
+        mSpinnerConfiguration = (Spinner) findViewById(R.id.mChoiceType);
+        setmSpinnerConfiguration();
+
+        mSpinnerColor = (Spinner) findViewById(R.id.mChoiceColor);
+        setmSpinnerColor();
+
+        mButtonOk = (Button) findViewById(R.id.buttonOk);
+        setmButtonOk();
+        mButtonRiest = (Button) findViewById(R.id.buttonReset);
+        setmButtonRiest();
+
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    public void setmWebView(){
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.setWebViewClient(new WebViewClient());
-        mWebView.loadUrl(Uri.parse("file:///android_asset/index.html").toString());
+        mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.loadData("<html>" +
                 "<head>" +
-                "<script>" +
-                "function changeBG(color) {"+
-                    "document.body.style.backgroundColor = color;"+
+                "<script type=\"text/javascript\">" +
+
+                "function reset(){"+
+                    "changeBG(\"white\");"+
+                    "changeTeks(\"black\");"+
                 "}"+
+
+                "function changeBG(color) {"+
+                    "document.getElementById('background').style.backgroundColor = color;"+
+                "}"+
+
                 "function changeTeks(color) {"+
                     "document.getElementById('input').style.color = color;"+
                 "}"+
+
                 "function myFunction(){"+
-                    "var choiceType = document.getElementById('choice-type').value;"+
-                    "var choiceColor = document.getElementById('choice-color').value;"+
+                // ini ID dropdown di javascript. Kalo di android kasih id spinner nya seperti apa?
+                "var choiceType = document.getElementById('mChoiceType').value;"+
+                "var choiceColor = document.getElementById('mChoiceColor').value;"+
+
                     "if (choiceType) {"+
                         "if (choiceType == 'Background'){"+
                             "changeBG(choiceColor);"+
@@ -68,131 +97,178 @@ public class MainActivity extends AppCompatActivity{
                     "}"+
                 "}"+
                 "</script>" +
+
                 "</head>" +
-                "<body id='baground'>" +
-                "<p><span id='input'></span></p>" +
+
+                "<body id='background'>" +
+
+                "<h2 id='input'> </h2>" +
+
+                //ini dropdown html di webView bisa dengan ID mChoiceType
+                "<select id='mChoiceType'>"+
+                "<option >Background</option>"+
+                "<option >Teks</option>"+
+                "</select>"+
+
+                //ini dropdown html di webView bisa dengan ID mChoiceColor
+                "<select id='mChoiceColor'>"+
+                "<option >Red</option>"+
+                "<option >Green</option>"+
+                "<option >Yellow</option>"+
+                "</select>"+
+
+                "</select>"+
                 "</body>" +
-                "</html>","text/html","UTF-8");
+                "</html>",mimeType,encoding);
+    }
 
-
+    public void setmButtonKlik(){
         mButtonKlik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String editText = mEditText.getText().toString();
-                String javascript = "javascript: document.getElementById('input').innerHTML = '"+editText+"';void(0);";
+                String javascript = "javascript: document.getElementById('input').innerHTML = '"+editText+"'; console.log(\"javascript function called input from android\");";
                 mWebView.loadUrl(javascript);
 
-                if (editText.matches("")) {
-                    mEditText.setError("Message is Empty");
-                }else {
-                    mEditText.setText("");
-                }
             }
         });
-        mSpinnerConfiguration = (Spinner) findViewById(R.id.mSpinnerConfiguration);
-        final ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
-                R.array.config, android.R.layout.simple_list_item_1);
+    }
+
+    public void setmSpinnerConfiguration(){
+
+        listConfig.add("Background");
+        listConfig.add("Teks");
+        final ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, listConfig);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerConfiguration.setAdapter(adapter1);
-        mSpinnerConfiguration.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+
+        /* mSpinnerConfiguration.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String urlName = String.valueOf(parent.getItemAtPosition(position));
+//                Toast.makeText(MainActivity.this, ""+urlName, Toast.LENGTH_SHORT).show();
 
-                // On selecting a spinner item
-                String item1 = mSpinnerConfiguration.getSelectedItem().toString();
-                // Showing selected spinner item
-                Toast.makeText(getApplicationContext(),"" + item1, Toast.LENGTH_LONG).show();
 
-               if (item1 != "Background"){
-//                    Toast.makeText(MainActivity.this, "Background", Toast.LENGTH_SHORT).show();
-//                    String background = "javascript : document.getElementById('choice-type').innerHTML = '"+mSpinnerConfiguration.getSelectedItem()+"'; changeBG(color);";
 
-                   mWebView.setWebViewClient(new WebViewClient(){
-                       public void onPageFinished(WebView webView, String url){
-                           String background = "javascript :changeBG(color)";
-                           mWebView.loadUrl(background);
-                       }
-                   });
+                String urlValue = "javascript document.getElementById('mChoiceType').innerHTML = mChoiceColor  ";
+                switch (urlName) {
+                    case "Background":
+                        urlValue = "javascript : document.getElementById('mChoiceType').innerHTML = changeBG(choiceColor) ";
+//                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
+//                            mWebView.evaluateJavascript("javascript : changeBG(color)", null);
+                        Toast.makeText(MainActivity.this, "BACKGROUND", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case "Teks":
+                        urlValue = "javascript :document.getElementById('mChoiceType').innerHTML = changeTeks(choiceColor);";
+//                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
+//                            mWebView.evaluateJavascript("javascript : changeTeks(color)", null);
+                        Toast.makeText(MainActivity.this, "TEKS", Toast.LENGTH_SHORT).show();
+                        break;
                 }
-                if (item1 != "Teks"){
-//                    Toast.makeText(MainActivity.this, "Teks", Toast.LENGTH_SHORT).show();
-//                    String teks = "javascript : document.getElementById('choice-color').innerHTML = '"+mSpinnerConfiguration.getSelectedItem()+"'; changeTeks(color);";
-
-                    mWebView.setWebViewClient(new WebViewClient(){
-                        public void onPageFinished(WebView webView, String url){
-                            String teks = "javascript : changeTeks(color)";
-                            mWebView.loadUrl(teks);
-                        }
-                    });
-                }
-
+                mWebView.loadUrl(urlValue);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mWebView.loadData(htmlText,mimeType,encoding);
+
             }
-        });
+        });*/
 
+    }
 
-        mSpinnerColor = (Spinner) findViewById(R.id.mSpinnerColor);
-        @SuppressLint("ResourceType")
-        final ArrayAdapter<CharSequence> adapter2 = new ArrayAdapter<>(this,
-                R.array.color, android.R.layout.simple_list_item_2);
+    public void setmSpinnerColor(){
+
+        listColor.add("Red");
+        listColor.add("Green");
+        listColor.add("Yellow");
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, listColor);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinnerColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSpinnerColor.setAdapter(adapter2);
+       /* mSpinnerColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String urlName = String.valueOf(parent.getItemAtPosition(position));
+//                Toast.makeText(MainActivity.this, ""+urlName, Toast.LENGTH_SHORT).show();
 
-                String item2 = mSpinnerColor.getSelectedItem().toString();
+                String urlValue = "javascript :document.getElementById('mChoiceType').innerHTML = mChoiceColor;";
+                switch (urlName) {
+                    case "Red":
+                        urlValue = "javascript :document.getElementById('mChoiceType').innerHTML = ;";
+//                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
+//                            mWebView.evaluateJavascript("javascript : document.body.style.backgroundColor='red';", null);
+//                        }else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
+//                            mWebView.loadUrl("javascript : document.body.style.color='red';");
+//                        }
+                        Toast.makeText(MainActivity.this, "RED", Toast.LENGTH_SHORT).show();
+                        break;
 
-                // Showing selected spinner item
-                Toast.makeText(getApplicationContext(),"" + item2, Toast.LENGTH_LONG).show();
+                    case "Green":
+//                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
+//                            mWebView.evaluateJavascript("javascript : document.body.style.backgroundColor='green';", null);
+//                        }else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
+//                            mWebView.loadUrl("javascript : document.body.style.color='green';");
+//                        }
+                        Toast.makeText(MainActivity.this, "GREEN", Toast.LENGTH_SHORT).show();
+                        break;
 
-                if (item2 != "Red"){
-                    Toast.makeText(MainActivity.this, "colorRed", Toast.LENGTH_SHORT).show();
-//                    String red ="javascript: document.getElementById('input').style.color = red;";
-//                    mWebView.loadUrl(red);
+                    case "Yellow":
+//                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
+//                            mWebView.evaluateJavascript("javascript : document.body.style.backgroundColor='yellow';", null);
+//                        }else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
+//                            mWebView.loadUrl("javascript : document.body.style.color='yellow';");
+//                        }
+                        Toast.makeText(MainActivity.this, "YELLOW", Toast.LENGTH_SHORT).show();
+                        break;
                 }
-                if (item2 != "Green"){
-                    Toast.makeText(MainActivity.this, "colorGreen", Toast.LENGTH_SHORT).show();
-//                    String green ="javascript: document.getElementById('input').style.color = green;";
-//                    mWebView.loadUrl(green);
-                }
-                if (item2 != "Yellow"){
-                    Toast.makeText(MainActivity.this, "colorYellow", Toast.LENGTH_SHORT).show();
-//                    String yellow ="javascript: document.getElementById('input').style.color = yellow;";
-//                    mWebView.loadUrl(yellow);
-                }
+                    mWebView.loadUrl(urlValue);
             }
+
+
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+//            mWebView.evaluateJavascript("document.body.style.backgroundColor=\"green\";document.body.style.color=\"black\"; '"+parent.getItemAtPosition(position).toString()+"'", null);
+//        }else if (listConfig.equals("TEXT")){
+//            mWebView.loadUrl("javascript:document.body.style.backgroundColor=\"#blue\";document.body.style.color=\"white\";");
+//        }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mWebView.loadData(htmlText,mimeType,encoding);
+
             }
-        });
+        });*/
 
 
+    }
 
 
-        mButtonOk = (Button) findViewById(R.id.buttonOk);
+    public  void setmButtonOk(){
         mButtonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String javascript = "javascript:myFunction()";
-                mWebView.loadUrl(javascript);
+//                String javascript = "javascript: document.getElementById('input').value; console.log(\"javascript function called button ok android\");";
+                String js = "javascript: myFunction(); console.log(\"javascript function called button Ok android\"); ";
+                mWebView.loadUrl(js);
+
             }
         });
+    }
 
-        mButtonRiest = (Button) findViewById(R.id.buttonReset);
+    public void setmButtonRiest(){
         mButtonRiest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWebView.clearView();
+                String javascriptReset = "javascript: reset(); console.log(\"javascript function called reset txt and bg android\");";
+                mWebView.loadUrl(javascriptReset);
+                mEditText.setText("");
             }
         });
-
     }
+
+
 }
 
 

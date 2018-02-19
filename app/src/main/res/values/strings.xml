@@ -1,15 +1,21 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/tools">
     <string name="app_name">Test Interview</string>
     <string name="text_detail">kalau di klik isian text, konfigurasi, dan Pilihan warna, dan WebView akan di reset seperti semula mengunakan fugsi javascript.</string>
 
-    <string-array id="choice-type" name="config">
-        <item id="bgchoice">Background</item>
-        <item id="textchoice">Text</item>
+    <!--<string-array name="config" id="choice-type">-->
+        <!--<item value="Background">Background</item>-->
+        <!--<item value="Teks">Text</item>-->
+    <!--</string-array>-->
+
+    <string-array name="mChoiceType" id="mChoiceType">
+        <item >Background</item>
+        <item >Teks</item>
     </string-array>
 
-    <string-array id="choice-color" name="color" >
-        <item value="#ff0000">Red</item>
-        <item value="#00ff00">Green</item>
-        <item value="#ffff00">Yellow</item>
+    <string-array name="mChoiceColor" id="mChoiceColor">
+        <item >Red</item>
+        <item >Green</item>
+        <item >Yellow</item>
     </string-array>
+
 </resources>

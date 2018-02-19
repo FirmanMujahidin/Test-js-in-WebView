@@ -120,11 +120,10 @@
         android:layout_below="@+id/rl3"
         android:layout_marginTop="10dp">
         <Spinner
-            android:id="@+id/mSpinnerConfiguration"
+            android:id="@+id/mChoiceType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/config"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -154,11 +153,10 @@
         android:layout_below="@+id/rl4"
         android:layout_marginTop="10dp">
         <Spinner
-            android:id="@+id/mSpinnerColor"
+            android:id="@+id/mChoiceColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/color"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -228,14 +226,4 @@
         tools:ignore="RtlHardcoded" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/rl6"
-        android:layout_marginTop="10dp">
-
-
-    </RelativeLayout>
 </RelativeLayout>
